@@ -55,6 +55,7 @@ export class SrcStack extends cdk.Stack {
         new PolicyStatement({
           effect: Effect.ALLOW,
           actions: [
+            'dynamodb:ListTables',
             'dynamodb:PutItem',
             'dynamodb:GetItem',
             'dynamodb:Query',
@@ -67,8 +68,9 @@ export class SrcStack extends cdk.Stack {
             'dynamodb:BatchWrite*',
           ],
           resources: [
-            `arn:aws:dynamodb:${this.region}:${this.account}:table/${ddbTableName}`,
-            `arn:aws:dynamodb:${this.region}:${this.account}:table/${ddbTableName}/index/*`,
+            `arn:aws:dynamodb:*:*:table/*`,
+            `arn:aws:dynamodb:*:*:table/${ddbTableName}`,
+            `arn:aws:dynamodb:*:*:table/${ddbTableName}/index/*`,
           ],
         }),
       ],
@@ -86,6 +88,7 @@ export class SrcStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'S3 Bucket Arn', { value: s3bucket.bucket.bucketArn}) ;
     new cdk.CfnOutput(this, 'DynamoDB Arn', { value: ddb.table.tableArn }) ;
     new cdk.CfnOutput(this, 'IAM User Name', { value: user.userName }) ;
+    new cdk.CfnOutput(this, 'IAM Policy Name', { value: policy.policyName }) ;
     //new cdk.CfnOutput(this, 'IAM AccessKey', { value: accessKey.accessKeyId}) ;
     //new cdk.CfnOutput(this, 'IAM SecretKey', { value: secretValue.secretValue.toString() }) ;
   }
