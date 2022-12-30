@@ -2,7 +2,6 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 import { User, Policy, PolicyStatement, AccessKey, Effect } from 'aws-cdk-lib/aws-iam';
-import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 
 import { S3 } from './resource/s3';
 import { Ddb } from './resource/ddb';
@@ -23,11 +22,12 @@ export class SrcStack extends cdk.Stack {
 
     // DynamoDB Table Name
     const ddbTableName = 'userTable';
-    const ddbPartitionName = 'emailAddress';
+    const ddbPartitionName = 'Name';
     // DynamoDB
     const ddb = new Ddb();
     ddb.createDdb(this, ddbTableName, ddbPartitionName);
-    
+  
+
     /*-- IAM User for S3, DyanamoDB --*/
 
     // IAM User
