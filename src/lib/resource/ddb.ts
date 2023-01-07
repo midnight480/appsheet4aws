@@ -16,6 +16,7 @@ export class Ddb {
                 partitionKey: { name: partitionName, type: aws_dynamodb.AttributeType.STRING },
                 billingMode: aws_dynamodb.BillingMode.PAY_PER_REQUEST,
                 removalPolicy: RemovalPolicy.DESTROY,
+                stream: aws_dynamodb.StreamViewType.NEW_IMAGE,
                 kinesisStream: new aws_kinesis.Stream(scope, 'Create Kinesis Stream', {
                     streamName: kinesisStreamName,
                     shardCount: 1,
@@ -44,4 +45,5 @@ export class Ddb {
                 });
             return this.updateItemComprehendText;
         }
+
 }
